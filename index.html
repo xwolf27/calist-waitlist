@@ -4,266 +4,386 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calist</title>
-  <meta name="description" content="Calist keeps you organised — shared calendar, lists, notes, and chat, all in one place. Join the waitlist." />
+  <meta name="description" content="Calist brings your calendars, tasks, lists, and team chat together in one place. Join the waitlist." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --purple: #6157D1;
-      --purple-bg: #EDEDE7;
-      --purple-light: #eeedf8;
-      --dark: #0D0D0D;
-      --grey-text: #6B6B75;
-      --grey-muted: #8C8C8C;
-      --grey-light: #B3B3B3;
-      --border: #EBEBEB;
-      --input-bg: #F7F7F7;
-    }
-
     body {
-      font-family: 'Inter', sans-serif;
-      color: var(--dark);
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #1a1a1a;
       background: #fff;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* NAV */
-    nav {
+    /* ── NAV ─────────────────────────────────────────────────── */
+    .nav {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 20px 48px;
-      background: #fff;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      border-bottom: 1px solid transparent;
+      padding: 16px 80px;
+      position: relative;
+      z-index: 50;
     }
-    .nav-logo {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--dark);
-      text-decoration: none;
-    }
-    .nav-links {
+    .nav-brand {
       display: flex;
-      gap: 28px;
-    }
-    .nav-links a {
-      font-size: 15px;
-      color: #666;
+      align-items: center;
+      gap: 10px;
       text-decoration: none;
-      transition: color 0.15s;
     }
-    .nav-links a:hover { color: var(--dark); }
+    .nav-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+    }
+    .nav-name {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
 
-    /* HERO */
+    /* ── HERO ────────────────────────────────────────────────── */
     .hero {
-      background: linear-gradient(170deg, #f5f4fc 0%, #eae9f6 60%, #e4e2f5 100%);
-      text-align: center;
-      padding: 80px 24px 96px;
+      position: relative;
+      overflow: hidden;
+      padding: 0 24px 96px;
     }
-    .badge {
+
+    /* Device mockup container */
+    .devices-wrap {
+      position: relative;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 900px;
+      padding: 300px 16px 0;
+    }
+    .device-ipad {
+      position: relative;
+      z-index: 10;
+      margin: 0 auto;
+      width: 72%;
+    }
+    .device-ipad img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    }
+    .device-iphone-left {
+      position: absolute;
+      bottom: -32px;
+      left: 0;
+      z-index: 20;
+      width: 18%;
+      transform: rotate(-6deg);
+    }
+    .device-iphone-right {
+      position: absolute;
+      bottom: -32px;
+      right: 0;
+      z-index: 20;
+      width: 18%;
+      transform: rotate(6deg);
+    }
+    .device-iphone-left img,
+    .device-iphone-right img {
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+    }
+
+    /* Text overlay */
+    .hero-text {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(to bottom, #fff 55%, transparent);
+      padding: 20px 24px 96px;
+      text-align: center;
+    }
+    .stars-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: #eeedf8;
-      color: var(--purple);
+      gap: 8px;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 100px;
+      padding: 8px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      margin-bottom: 24px;
+    }
+    .stars {
+      display: flex;
+      gap: 2px;
+    }
+    .stars svg {
+      width: 14px;
+      height: 14px;
+      color: #1a1a1a;
+    }
+    .stars-label {
       font-size: 13px;
       font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 100px;
-      margin-bottom: 32px;
+      color: #404040;
     }
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--purple);
-    }
-    h1 {
-      font-size: clamp(40px, 6vw, 64px);
-      font-weight: 700;
-      line-height: 1.1;
+    .hero-h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(40px, 5.5vw, 56px);
+      font-weight: 600;
+      line-height: 1.14;
       letter-spacing: -0.02em;
-      color: var(--dark);
-      max-width: 720px;
-      margin: 0 auto;
+      color: #1a1a1a;
+      max-width: 640px;
     }
-    h1 .accent { color: var(--purple); }
-    .typewriter-line {
-      display: block;
-      color: var(--purple);
-      min-height: 1.2em;
+    .typewriter-wrap {
+      display: inline;
     }
     .cursor {
       display: inline-block;
       width: 3px;
-      background: var(--purple);
+      height: 0.8em;
+      background: #1a1a1a;
       margin-left: 2px;
       border-radius: 2px;
       vertical-align: baseline;
-      animation: blink 1s step-end infinite;
-      height: 0.85em;
       position: relative;
       top: 0.05em;
+      animation: blink 1s step-end infinite;
     }
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
     .hero-sub {
-      font-size: 20px;
-      color: var(--grey-text);
-      max-width: 480px;
-      margin: 24px auto 40px;
+      margin-top: 24px;
+      font-size: 18px;
       line-height: 1.6;
+      color: #808080;
+      max-width: 480px;
     }
 
-    /* FORM */
+    /* ── FORM ────────────────────────────────────────────────── */
+    .waitlist-form {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 460px;
+    }
     .form-row {
       display: flex;
       gap: 10px;
-      justify-content: center;
-      max-width: 500px;
-      margin: 0 auto;
     }
     .email-input {
       flex: 1;
-      height: 50px;
+      height: 48px;
       padding: 0 16px;
       background: #fff;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
+      border: 1.5px solid #e6e6e6;
+      border-radius: 100px;
       font-size: 15px;
       font-family: inherit;
-      color: var(--dark);
+      color: #1a1a1a;
       outline: none;
       transition: border-color 0.15s;
     }
-    .email-input::placeholder { color: #A6A6A6; }
-    .email-input:focus { border-color: var(--purple); }
-    .cta-btn {
-      height: 50px;
+    .email-input::placeholder { color: #aaa; }
+    .email-input:focus { border-color: #1a1a1a; }
+    .submit-btn {
+      height: 48px;
       padding: 0 22px;
-      background: var(--dark);
+      background: #1a1a1a;
       color: #fff;
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 500;
       font-family: inherit;
       border: none;
-      border-radius: 10px;
+      border-radius: 100px;
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.15s, transform 0.1s;
+      transition: opacity 0.15s, transform 0.1s;
     }
-    .cta-btn:hover { background: #222; }
-    .cta-btn:active { transform: scale(0.98); }
-    .cta-btn:disabled { background: #999; cursor: not-allowed; transform: none; }
-
-    .form-message {
+    .submit-btn:hover { opacity: 0.88; }
+    .submit-btn:active { transform: scale(0.97); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .submit-btn.light {
+      background: #fff;
+      color: #1a1a1a;
+    }
+    .form-msg {
       margin-top: 12px;
       font-size: 14px;
       min-height: 20px;
-      color: var(--purple);
+      color: #1a1a1a;
       font-weight: 500;
     }
-    .form-message.error { color: #c0392b; }
+    .form-msg.error { color: #c0392b; }
 
-    /* SOCIAL PROOF */
-    .social-proof {
+    /* ── TRUST STRIP ─────────────────────────────────────────── */
+    .trust-strip {
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      background: #fafafa;
+      padding: 32px 24px;
+    }
+    .trust-inner {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .trust-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #8c8c8c;
+      white-space: nowrap;
+    }
+    .trust-logos {
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      margin-top: 24px;
+      gap: 32px;
     }
-    .avatar-stack {
-      display: flex;
+    .trust-logos span {
+      font-size: 14px;
+      font-weight: 500;
+      color: #aaa;
     }
-    .avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 2px solid #fff;
+
+    /* ── FEATURE SECTIONS ────────────────────────────────────── */
+    .feature-section {
+      padding: 96px 48px;
+    }
+    .feature-section.alt-bg {
+      background: #fafafa;
+    }
+    .feature-inner {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 11px;
+      gap: 64px;
+      max-width: 1100px;
+      margin: 0 auto;
+      flex-direction: row;
+    }
+    .feature-inner.flip {
+      flex-direction: row-reverse;
+    }
+    .feature-text {
+      flex: 1;
+    }
+    .feature-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #8c8c8c;
+      margin-bottom: 12px;
+    }
+    .feature-h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(28px, 3.5vw, 36px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #1a1a1a;
+    }
+    .feature-desc {
+      margin-top: 16px;
+      font-size: 17px;
+      line-height: 1.65;
+      color: #808080;
+      max-width: 440px;
+    }
+    .feature-img {
+      flex: 1;
+    }
+    .feature-img img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    }
+
+    @media (max-width: 680px) {
+      .feature-section { padding: 60px 24px; }
+      .feature-inner,
+      .feature-inner.flip { flex-direction: column; gap: 32px; }
+      .feature-desc { max-width: 100%; }
+    }
+
+    /* ── CTA BANNER ──────────────────────────────────────────── */
+    .cta-section {
+      background: #fafafa;
+      padding: 96px 24px;
+    }
+    .cta-panel {
+      background: #1a1a1a;
+      border-radius: 28px;
+      padding: 64px 48px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .cta-h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(28px, 4vw, 36px);
       font-weight: 600;
       color: #fff;
-      margin-left: -8px;
     }
-    .avatar:first-child { margin-left: 0; }
-    .social-text {
-      font-size: 14px;
-      color: var(--grey-muted);
+    .cta-sub {
+      margin-top: 16px;
+      font-size: 15px;
+      color: #999;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
     }
-
-    /* DIVIDER */
-    .divider { height: 1px; background: var(--border); }
-
-    /* FEATURES STRIP */
-    .features {
+    .cta-form-wrap {
       display: flex;
       justify-content: center;
-      gap: 0;
-      padding: 40px 48px;
-      background: #fff;
-      flex-wrap: wrap;
+      margin-top: 32px;
     }
-    .feature-item {
+    .cta-form-wrap .waitlist-form {
+      margin-top: 0;
+    }
+    .cta-form-wrap .email-input {
+      background: #2a2a2a;
+      border-color: #3a3a3a;
+      color: #fff;
+    }
+    .cta-form-wrap .email-input::placeholder { color: #666; }
+    .cta-form-wrap .email-input:focus { border-color: #666; }
+    .cta-form-wrap .form-msg { color: #ccc; }
+    .cta-form-wrap .form-msg.error { color: #f87171; }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      background: #1a1a1a;
+      padding: 48px 80px;
+    }
+    .footer-top {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
-      padding: 16px 40px;
-      border-right: 1px solid var(--border);
-      flex: 1;
-      min-width: 180px;
-      max-width: 280px;
-    }
-    .feature-item:last-child { border-right: none; }
-    .feature-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: #eeedf8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--purple);
-      flex-shrink: 0;
-    }
-    .feature-text h3 {
-      font-size: 15px;
-      font-weight: 600;
-      color: #1A1A1A;
-      margin-bottom: 2px;
-    }
-    .feature-text p {
-      font-size: 13px;
-      color: var(--grey-muted);
-    }
-
-    /* FOOTER */
-    footer {
-      display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 24px 48px;
-      border-top: 1px solid var(--border);
+      gap: 24px;
       flex-wrap: wrap;
-      gap: 12px;
     }
-    .footer-logo {
-      font-size: 15px;
+    .footer-brand {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 18px;
       font-weight: 600;
-      color: var(--dark);
+      color: #fff;
+    }
+    .footer-tagline {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #666;
     }
     .footer-links {
       display: flex;
@@ -271,137 +391,233 @@
     }
     .footer-links a {
       font-size: 13px;
-      color: var(--grey-muted);
+      color: #666;
       text-decoration: none;
       transition: color 0.15s;
     }
-    .footer-links a:hover { color: var(--dark); }
+    .footer-links a:hover { color: #fff; }
     .footer-copy {
-      font-size: 13px;
-      color: var(--grey-light);
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid #2a2a2a;
+      font-size: 12px;
+      color: #444;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 640px) {
-      nav { padding: 16px 20px; }
-      .hero { padding: 60px 20px 72px; }
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 680px) {
+      .nav { padding: 16px 20px; }
+      .devices-wrap { padding-top: 220px; }
+      .device-ipad { width: 90%; }
+      .device-iphone-left,
+      .device-iphone-right { width: 22%; }
+      .hero-text { padding: 16px 20px 72px; }
       .form-row { flex-direction: column; }
-      .email-input, .cta-btn { width: 100%; }
-      .features { flex-direction: column; align-items: center; padding: 24px 20px; }
-      .feature-item { border-right: none; border-bottom: 1px solid var(--border); padding: 16px 0; max-width: 100%; width: 100%; }
-      .feature-item:last-child { border-bottom: none; }
-      footer { flex-direction: column; align-items: flex-start; padding: 20px; }
+      .email-input, .submit-btn { width: 100%; border-radius: 12px; }
+      .trust-inner { flex-direction: column; }
+      .cta-panel { padding: 48px 24px; border-radius: 20px; }
+      .cta-form-wrap .form-row { flex-direction: column; }
+      footer { padding: 40px 20px; }
+      .footer-top { flex-direction: column; }
+    }
+
+    @media (min-width: 681px) {
+      .trust-inner { flex-direction: row; justify-content: space-between; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a class="nav-logo" href="/">Calist</a>
-  </nav>
+  <!-- NAV -->
+  <header class="nav">
+    <a class="nav-brand" href="/">
+      <img class="nav-icon" src="/app-icon.png" alt="Calist" />
+      <span class="nav-name">Calist</span>
+    </a>
+  </header>
 
+  <!-- HERO -->
   <section class="hero">
-    <div class="badge">
-      <span class="badge-dot"></span>
-      Now accepting early access
-    </div>
-    <h1>
-      A <span class="accent">simpler</span> way to organise your
-      <span class="typewriter-line" id="typewriter"><span class="cursor"></span></span>
-    </h1>
-    <p class="hero-sub">Calist keeps you organised — shared calendar, lists, notes, and chat, all in one place. Be first to try it.</p>
-
-    <form id="waitlist-form" onsubmit="submitForm(event)">
-      <div class="form-row">
-        <input
-          class="email-input"
-          type="email"
-          id="email-input"
-          placeholder="Enter your email address"
-          required
-          autocomplete="email"
-        />
-        <button class="cta-btn" type="submit" id="submit-btn">Join the waitlist</button>
+    <!-- Device mockups (behind text) -->
+    <div class="devices-wrap">
+      <div class="device-ipad">
+        <img src="/marketing/ipad-today.png" alt="Calist on iPad — Today view with schedule and lists" />
       </div>
-      <div class="form-message" id="form-message"></div>
-    </form>
-
-  </section>
-
-  <div class="divider"></div>
-
-  <section class="features" id="features">
-    <div class="feature-item">
-      <div class="feature-icon">Cal</div>
-      <div class="feature-text">
-        <h3>Shared Calendar</h3>
-        <p>One view for the whole family</p>
+      <div class="device-iphone-left">
+        <img src="/marketing/iphone-today.png" alt="Calist on iPhone — Today view" />
+      </div>
+      <div class="device-iphone-right">
+        <img src="/marketing/iphone-lists.png" alt="Calist on iPhone — Lists view" />
       </div>
     </div>
-    <div class="feature-item">
-      <div class="feature-icon">List</div>
-      <div class="feature-text">
-        <h3>Smart Lists</h3>
-        <p>Shopping, tasks, and more</p>
+
+    <!-- Text overlay fading into device mockups -->
+    <div class="hero-text">
+      <div class="stars-badge">
+        <div class="stars">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <span class="stars-label">Now accepting early access</span>
       </div>
-    </div>
-    <div class="feature-item">
-      <div class="feature-icon">AI</div>
-      <div class="feature-text">
-        <h3>AI Capture</h3>
-        <p>Inbox that organises itself</p>
-      </div>
+
+      <h1 class="hero-h1">
+        A simpler way to<br />organise your <span class="typewriter-wrap" id="typewriter"><span class="cursor"></span></span>
+      </h1>
+      <p class="hero-sub">
+        Calist brings your calendars, tasks, lists, and team chat together in one place. Connect Google Calendar, Outlook, or Apple Calendar and keep everyone on the same page.
+      </p>
+
+      <form class="waitlist-form" id="hero-form" onsubmit="submitForm(event, this)">
+        <div class="form-row">
+          <input class="email-input" type="email" placeholder="Enter your email address" required autocomplete="email" />
+          <button class="submit-btn" type="submit">Join the waitlist</button>
+        </div>
+        <div class="form-msg"></div>
+      </form>
     </div>
   </section>
 
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <p class="trust-label">Works with your existing tools</p>
+      <div class="trust-logos">
+        <span>Google Calendar</span>
+        <span>Outlook</span>
+        <span>Apple Calendar</span>
+        <span>iCloud</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURE SECTIONS -->
+  <section class="feature-section">
+    <div class="feature-inner">
+      <div class="feature-text">
+        <p class="feature-eyebrow">Calendar</p>
+        <h2 class="feature-h2">All your calendars, finally in one place</h2>
+        <p class="feature-desc">Connect Google Calendar, Outlook, and Apple Calendar. Every event from every account, unified in a single clean view — no more switching between apps.</p>
+      </div>
+      <div class="feature-img">
+        <img src="/marketing/ipad-calendar.png" alt="Calist calendar view on iPad showing month grid with shared calendars" />
+      </div>
+    </div>
+  </section>
+
+  <section class="feature-section alt-bg">
+    <div class="feature-inner flip">
+      <div class="feature-text">
+        <p class="feature-eyebrow">Tasks &amp; Lists</p>
+        <h2 class="feature-h2">Shared lists that actually stay in sync</h2>
+        <p class="feature-desc">Create lists for groceries, chores, or work. Assign tasks, set due dates, and tick things off together — in real time across every device.</p>
+      </div>
+      <div class="feature-img">
+        <img src="/marketing/ipad-lists.png" alt="Calist lists view on iPad showing shared grocery and task lists" />
+      </div>
+    </div>
+  </section>
+
+  <section class="feature-section">
+    <div class="feature-inner">
+      <div class="feature-text">
+        <p class="feature-eyebrow">AI Capture</p>
+        <h2 class="feature-h2">Brain dump. Let AI sort it out.</h2>
+        <p class="feature-desc">Type a thought, record a voice note, or snap a photo. Calist's AI inbox organises it into tasks, events, and notes automatically.</p>
+      </div>
+      <div class="feature-img">
+        <img src="/marketing/ipad-capture.png" alt="Calist capture inbox on iPad with AI-suggested actions" />
+      </div>
+    </div>
+  </section>
+
+  <section class="feature-section alt-bg">
+    <div class="feature-inner flip">
+      <div class="feature-text">
+        <p class="feature-eyebrow">Notes</p>
+        <h2 class="feature-h2">Keep the little details, together</h2>
+        <p class="feature-desc">From Wi-Fi passwords to recipe ideas and trip plans, Calist Notes keeps the reference bits of family life in one tidy place — searchable, shared, never lost.</p>
+      </div>
+      <div class="feature-img">
+        <img src="/marketing/ipad-notes.png" alt="Calist notes view on iPad showing shared household notes" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-section">
+    <div class="cta-panel">
+      <h2 class="cta-h2">Ready to get organised?</h2>
+      <p class="cta-sub">Be the first to try Calist — your calendar, tasks, and team in one place.</p>
+      <div class="cta-form-wrap">
+        <form class="waitlist-form" id="cta-form" onsubmit="submitForm(event, this)">
+          <div class="form-row">
+            <input class="email-input" type="email" placeholder="Enter your email address" required autocomplete="email" />
+            <button class="submit-btn light" type="submit">Join the waitlist</button>
+          </div>
+          <div class="form-msg"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <span class="footer-logo">Calist</span>
-    <span class="footer-copy">2026 Calist. All rights reserved.</span>
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand">Calist</p>
+        <p class="footer-tagline">A simpler way to organise your day.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; 2026 Calist. All rights reserved.</p>
   </footer>
 
   <script>
     // ── Typewriter ──────────────────────────────────────────────
-    const words = ["calendar", "lists", "notes", "day"];
+    const words = ["Calendar", "Lists", "Notes", "Jobs", "Day"];
     const el = document.getElementById("typewriter");
-    let wordIndex = 0;
-    let charIndex = 0;
-    let deleting = false;
-    let paused = false;
+    let wordIndex = 0, charIndex = 0, deleting = false, paused = false;
 
     function tick() {
       const word = words[wordIndex];
-      const displayed = word.slice(0, charIndex);
-      el.innerHTML = displayed + '<span class="cursor"></span>';
-
+      el.innerHTML = word.slice(0, charIndex) + '<span class="cursor"></span>';
       if (!deleting && !paused && charIndex < word.length) {
         charIndex++;
         setTimeout(tick, 80);
-      } else if (!deleting && !paused && charIndex === word.length) {
+      } else if (!deleting && !paused) {
         paused = true;
-        setTimeout(() => { paused = false; deleting = true; tick(); }, 1600);
+        setTimeout(() => { paused = false; deleting = true; tick(); }, 1800);
       } else if (deleting && charIndex > 0) {
         charIndex--;
         setTimeout(tick, 45);
-      } else if (deleting && charIndex === 0) {
+      } else {
         deleting = false;
         wordIndex = (wordIndex + 1) % words.length;
         setTimeout(tick, 300);
       }
     }
+    setTimeout(tick, 600);
 
-    setTimeout(tick, 500);
-
-    // ── Form submission ─────────────────────────────────────────
-    async function submitForm(e) {
+    // ── Waitlist form ───────────────────────────────────────────
+    async function submitForm(e, form) {
       e.preventDefault();
-      const email = document.getElementById("email-input").value.trim();
-      const btn = document.getElementById("submit-btn");
-      const msg = document.getElementById("form-message");
+      const input = form.querySelector("input[type=email]");
+      const btn = form.querySelector("button[type=submit]");
+      const msg = form.querySelector(".form-msg");
+      const email = input.value.trim();
 
       btn.disabled = true;
-      btn.textContent = "Joining...";
+      const originalText = btn.textContent;
+      btn.textContent = "Joining…";
       msg.textContent = "";
-      msg.className = "form-message";
+      msg.className = "form-msg";
 
       try {
         const res = await fetch("https://sharedapi.wolfdeveloping.au/waitlist", {
@@ -411,7 +627,7 @@
         });
         if (res.ok) {
           msg.textContent = "You're on the list. We'll be in touch soon.";
-          document.getElementById("email-input").value = "";
+          input.value = "";
         } else if (res.status === 409) {
           msg.textContent = "That email is already registered.";
         } else {
@@ -419,10 +635,10 @@
         }
       } catch {
         msg.textContent = "Something went wrong. Please try again.";
-        msg.className = "form-message error";
+        msg.className = "form-msg error";
       } finally {
         btn.disabled = false;
-        btn.textContent = "Join the waitlist";
+        btn.textContent = originalText;
       }
     }
   </script>
