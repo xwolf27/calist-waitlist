@@ -406,6 +406,99 @@
       color: #444;
     }
 
+    /* ── ANIMATIONS ─────────────────────────────────────────── */
+
+    /* Hero background glow */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% -10%, rgba(100,90,230,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 60%, rgba(80,160,240,0.07) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Entrance keyframes */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes devicesUp {
+      from { opacity: 0; transform: translateY(48px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes floatLeft {
+      0%, 100% { transform: rotate(-6deg) translateY(0); }
+      50%       { transform: rotate(-6deg) translateY(-8px); }
+    }
+    @keyframes floatRight {
+      0%, 100% { transform: rotate(6deg) translateY(0); }
+      50%       { transform: rotate(6deg) translateY(-8px); }
+    }
+
+    /* Nav */
+    .nav { animation: fadeDown 0.5s ease both; }
+
+    /* Hero text stagger */
+    .stars-badge  { animation: fadeUp 0.55s 0.15s ease both; }
+    .hero-h1      { animation: fadeUp 0.55s 0.28s ease both; }
+    .hero-sub     { animation: fadeUp 0.55s 0.40s ease both; }
+    .waitlist-form { animation: fadeUp 0.55s 0.52s ease both; }
+
+    /* Devices entrance + float */
+    .devices-wrap { animation: devicesUp 0.8s 0.3s ease both; }
+    .device-iphone-left  { animation: floatLeft  5s 1.2s ease-in-out infinite; }
+    .device-iphone-right { animation: floatRight 5s 1.5s ease-in-out infinite; }
+
+    /* Scroll reveal — base state */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s cubic-bezier(.22,.7,.3,1), transform 0.65s cubic-bezier(.22,.7,.3,1);
+    }
+    .reveal.from-left  { transform: translateX(-32px); }
+    .reveal.from-right { transform: translateX(32px); }
+    .reveal.visible {
+      opacity: 1;
+      transform: translate(0);
+    }
+
+    /* Feature image hover lift */
+    .feature-img img {
+      transition: transform 0.4s cubic-bezier(.22,.7,.3,1), box-shadow 0.4s cubic-bezier(.22,.7,.3,1);
+    }
+    .feature-img img:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.16);
+    }
+
+    /* CTA panel subtle glow */
+    .cta-panel {
+      background: linear-gradient(135deg, #1f1f1f 0%, #1a1a1a 60%, #1e1a2e 100%);
+      box-shadow: 0 0 80px rgba(100,90,230,0.15), 0 24px 64px rgba(0,0,0,0.25);
+    }
+
+    /* Trust logos fade-in stagger */
+    .trust-logos span {
+      opacity: 0;
+      transition: opacity 0.4s ease, color 0.2s ease;
+    }
+    .trust-logos span:hover { color: #666; }
+    .trust-strip.visible .trust-logos span:nth-child(1) { opacity: 1; transition-delay: 0.05s; }
+    .trust-strip.visible .trust-logos span:nth-child(2) { opacity: 1; transition-delay: 0.15s; }
+    .trust-strip.visible .trust-logos span:nth-child(3) { opacity: 1; transition-delay: 0.25s; }
+    .trust-strip.visible .trust-logos span:nth-child(4) { opacity: 1; transition-delay: 0.35s; }
+
     /* ── RESPONSIVE ──────────────────────────────────────────── */
     @media (max-width: 680px) {
       .nav { padding: 16px 20px; }
@@ -484,7 +577,7 @@
   </section>
 
   <!-- TRUST STRIP -->
-  <div class="trust-strip">
+  <div class="trust-strip reveal">
     <div class="trust-inner">
       <p class="trust-label">Works with your existing tools</p>
       <div class="trust-logos">
@@ -499,12 +592,12 @@
   <!-- FEATURE SECTIONS -->
   <section class="feature-section">
     <div class="feature-inner">
-      <div class="feature-text">
+      <div class="feature-text reveal from-left">
         <p class="feature-eyebrow">Calendar</p>
         <h2 class="feature-h2">All your calendars, finally in one place</h2>
         <p class="feature-desc">Connect Google Calendar, Outlook, and Apple Calendar. Every event from every account, unified in a single clean view — no more switching between apps.</p>
       </div>
-      <div class="feature-img">
+      <div class="feature-img reveal from-right">
         <img src="/marketing/ipad-calendar.png" alt="Calist calendar view on iPad showing month grid with shared calendars" />
       </div>
     </div>
@@ -512,12 +605,12 @@
 
   <section class="feature-section alt-bg">
     <div class="feature-inner flip">
-      <div class="feature-text">
+      <div class="feature-text reveal from-right">
         <p class="feature-eyebrow">Tasks &amp; Lists</p>
         <h2 class="feature-h2">Shared lists that actually stay in sync</h2>
         <p class="feature-desc">Create lists for groceries, chores, or work. Assign tasks, set due dates, and tick things off together — in real time across every device.</p>
       </div>
-      <div class="feature-img">
+      <div class="feature-img reveal from-left">
         <img src="/marketing/ipad-lists.png" alt="Calist lists view on iPad showing shared grocery and task lists" />
       </div>
     </div>
@@ -525,12 +618,12 @@
 
   <section class="feature-section">
     <div class="feature-inner">
-      <div class="feature-text">
+      <div class="feature-text reveal from-left">
         <p class="feature-eyebrow">AI Capture</p>
         <h2 class="feature-h2">Brain dump. Let AI sort it out.</h2>
         <p class="feature-desc">Type a thought, record a voice note, or snap a photo. Calist's AI inbox organises it into tasks, events, and notes automatically.</p>
       </div>
-      <div class="feature-img">
+      <div class="feature-img reveal from-right">
         <img src="/marketing/ipad-capture.png" alt="Calist capture inbox on iPad with AI-suggested actions" />
       </div>
     </div>
@@ -538,12 +631,12 @@
 
   <section class="feature-section alt-bg">
     <div class="feature-inner flip">
-      <div class="feature-text">
+      <div class="feature-text reveal from-right">
         <p class="feature-eyebrow">Notes</p>
         <h2 class="feature-h2">Keep the little details, together</h2>
         <p class="feature-desc">From Wi-Fi passwords to recipe ideas and trip plans, Calist Notes keeps the reference bits of family life in one tidy place — searchable, shared, never lost.</p>
       </div>
-      <div class="feature-img">
+      <div class="feature-img reveal from-left">
         <img src="/marketing/ipad-notes.png" alt="Calist notes view on iPad showing shared household notes" />
       </div>
     </div>
@@ -551,7 +644,7 @@
 
   <!-- CTA BANNER -->
   <section class="cta-section">
-    <div class="cta-panel">
+    <div class="cta-panel reveal">
       <h2 class="cta-h2">Ready to get organised?</h2>
       <p class="cta-sub">Be the first to try Calist — your calendar, tasks, and team in one place.</p>
       <div class="cta-form-wrap">
@@ -582,6 +675,18 @@
   </footer>
 
   <script>
+    // ── Scroll reveal ───────────────────────────────────────────
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
     // ── Typewriter ──────────────────────────────────────────────
     const words = ["Calendar", "Lists", "Notes", "Jobs", "Day"];
     const el = document.getElementById("typewriter");
